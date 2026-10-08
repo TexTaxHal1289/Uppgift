@@ -1,10 +1,69 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
+<h1>Hemberedskaps formulär</h1>
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Name">Namn</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email">E-post</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="mb-3">
+        <p>Har du tillgång till dricksvatten?</p>
+        <label><input type="radio" asp-for="Hardricksvatten" value="true" /> Ja</label>
+        <label><input type="radio" asp-for="Hardricksvatten" value="false" /> Nej</label>
+        <span asp-validation-for="Hardricksvatten" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <p>Har du mat för minst tre dagar?</p>
+        <label><input type="radio" asp-for="Harmatfor3dagar" value="true" /> Ja</label>
+        <label><input type="radio" asp-for="Harmatfor3dagar" value="false" /> Nej</label>
+        <span asp-validation-for="Harmatfor3dagar" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <p>Har du en ficklampa?</p>
+        <label><input type="radio" asp-for="harficklampa" value="true" /> Ja</label>
+        <label><input type="radio" asp-for="harficklampa" value="false" /> Nej</label>
+        <span asp-validation-for="harficklampa" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <p>Har du en batteridriven radio?</p>
+        <label><input type="radio" asp-for="harradio" value="true" /> Ja</label>
+        <label><input type="radio" asp-for="harradio" value="false" /> Nej</label>
+        <span asp-validation-for="harradio" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="EgnaTips">Egna beredskapstips (EJ OBLIGATORISK)</label>
+        <textarea asp-for="EgnaTips" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Sammanställ</button>
+</form>
+
+@if (Model.skickad)
+{
+    <div class="beredskap-sammanstallning alert alert-success" role="alert">
+        <h2>Tack för din anmälan, @Model.Name!</h2>
+        <p>Här är en sammanställning av dina svar:</p>
+        <ul>
+            <li><strong>Namn:</strong> @Model.Name</li>
+            <li><strong>E-post:</strong> @Model.Email</li>
+            <li><strong>Dricksvatten:</strong> @(Model.Hardricksvatten == true ? "Ja" : "Nej")</li>
+            <li><strong>Mat för minst tre dagar:</strong> @(Model.Harmatfor3dagar == true ? "Ja" : "Nej")</li>
+            <li><strong>Ficklampa:</strong> @(Model.harficklampa == true ? "Ja" : "Nej")</li>
+            <li><strong>Batteridriven radio:</strong> @(Model.harradio == true ? "Ja" : "Nej")</li>
+            @if (!string.IsNullOrWhiteSpace(Model.EgnaTips))
+            {
+                <li><strong>Egna tips:</strong> @Model.EgnaTips</li>
+            }
+        </ul>
+    </div>
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
