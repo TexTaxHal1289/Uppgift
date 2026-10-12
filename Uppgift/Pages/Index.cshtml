@@ -47,9 +47,11 @@
 
 @if (Model.skickad)
 {
+    
     <div class="beredskap-sammanstallning alert alert-success" role="alert">
         <h2>Tack för din anmälan, @Model.Name!</h2>
         <p>Här är en sammanställning av dina svar:</p>
+        <p><strong>Din poäng:</strong> @Model.Poang av 4 poäng</p>
         <ul>
             <li><strong>Namn:</strong> @Model.Name</li>
             <li><strong>E-post:</strong> @Model.Email</li>
@@ -63,7 +65,4 @@
             }
         </ul>
     </div>
-}
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
 }

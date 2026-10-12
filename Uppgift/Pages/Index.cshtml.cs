@@ -43,6 +43,8 @@ namespace Uppgift.Pages
 
         public bool skickad { get; set; }
 
+        public int Poang { get; set; }
+
         public void OnGet()
         {
         }
@@ -53,6 +55,20 @@ namespace Uppgift.Pages
             {
                 return Page();
             }
+
+            Poang = 0;
+
+            if (Hardricksvatten == true)
+                Poang++;
+
+            if (Harmatfor3dagar == true)
+                Poang++;
+
+            if (harficklampa == true)
+                Poang++;
+
+            if (harradio == true)
+                Poang++;
 
             skickad = true;
             return Page();
